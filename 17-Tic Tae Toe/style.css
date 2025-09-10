@@ -1,0 +1,65 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 
+                 'Lucida Grande', 'Lucida Sans Unicode', 
+                 Geneva, Verdana, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: cadetblue;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.board {
+    width: 450px;
+    height: 450px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    background-color: #333; /* this makes the grid lines */
+    gap: 5px;               /* thickness of the lines */
+    padding: 5px;           /* outer border */
+}
+
+.cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    font-weight: bold;
+    background-color: white;
+    color: blueviolet;
+    cursor: pointer;
+}
+
+#reset {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+#reset:hover {
+    background-color: #555;
+}
+
+.winmsg {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: rgb(90, 18, 18);
+}
