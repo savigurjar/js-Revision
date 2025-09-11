@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="root">
+      <h1>Welcome to Tic Tac Toe</h1>
+      <p>Click the button below to start the game!</p>
+
+      <div class="controls">
+        <button id="start">Start Game</button>
+        <button id="reset">Reset Game</button>
+      </div>
+
+      <div class="board" aria-label="Tic Tac Toe Board" role="grid">
+        <div class="cell empty" id="0" role="gridcell" tabindex="0"></div>
+        <div class="cell empty" id="1" role="gridcell" tabindex="0"></div>
+        <div class="cell empty" id="2" role="gridcell" tabindex="0"></div>
+        <div class="cell empty" id="3" role="gridcell" tabindex="0"></div>
+        <div class="cell empty" id="4" role="gridcell" tabindex="0"></div>
+        <div class="cell empty" id="5" role="gridcell" tabindex="0"></div>
+        <div class="cell empty" id="6" role="gridcell" tabindex="0"></div>
+        <div class="cell empty" id="7" role="gridcell" tabindex="0"></div>
+        <div class="cell empty" id="8" role="gridcell" tabindex="0"></div>
+      </div>
+
+      <!-- Result message -->
+      <div class="result-card" hidden>
+        <p id="result-title"></p>
+      </div>
+
+      <div class="footer">
+        <p>Made with 💙 | Tic Tac Toe</p>
+      </div>
+    </div>
+
+    <script src="./index.js"></script>
+  </body>
+</html>

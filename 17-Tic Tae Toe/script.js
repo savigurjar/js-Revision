@@ -7,7 +7,7 @@ const winner = [
 ]
 function checkWinner() {
     for (let [index0, index1, index2] of winner) {
-        console.log(index0, index1, index2)
+        // console.log(index0, index1, index2)
         if (board_array[index0] != "E" && board_array[index0] === board_array[index1] && board_array[index1] === board_array[index2] && board_array[index2] === board_array[index0]) {
             return 1;
         }
