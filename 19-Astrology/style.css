@@ -1,0 +1,359 @@
+@import url('https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Cursive:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --bg-dark: #08060f;
+    --nebula-1: #2b0b3a;
+    /* deep purple */
+    --nebula-2: #0b3350;
+    /* teal indigo */
+    --accent-gold: #f2c46b;
+    --accent-purple: #c48bff;
+    --accent-teal: #6ff0ff;
+    --glass: rgba(255, 255, 255, 0.04);
+    --muted: rgba(255, 255, 255, 0.75);
+    --card-radius: 18px;
+    --maxw: 1100px;
+}
+
+* {
+    box-sizing: border-box;
+     font-family: "Montserrat", sans-serif;
+}
+
+html,
+body {
+    height: 100%
+}
+
+body {
+    margin: 0;
+   
+    color: #fff;
+    background: linear-gradient(180deg, var(--bg-dark), #081226);
+    overflow: auto;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    /* aurora layers */
+    background-image:
+        radial-gradient(600px 300px at 10% 12%, rgba(196, 139, 255, 0.06), transparent),
+        radial-gradient(500px 300px at 85% 80%, rgba(111, 240, 255, 0.04), transparent),
+        linear-gradient(180deg, var(--nebula-1), var(--nebula-2));
+}
+
+/* animated star field using pseudo layers */
+.sky {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -2;
+    opacity: 0.9;
+    background-image: radial-gradient(2px 2px at 10% 20%, rgba(255, 255, 255, 0.9), transparent),
+        radial-gradient(1.6px 1.6px at 40% 70%, rgba(255, 255, 255, 0.85), transparent),
+        radial-gradient(1.2px 1.2px at 70% 30%, rgba(255, 255, 255, 0.75), transparent);
+    background-size: 300px 300px, 260px 260px, 220px 220px;
+    animation: drift 40s linear infinite;
+    mix-blend-mode: screen;
+}
+
+@keyframes drift {
+    from {
+        background-position: 0 0, 0 0, 0 0
+    }
+
+    to {
+        background-position: 1000px 600px, -800px -400px, 400px 900px
+    }
+}
+
+/* layout */
+.wrap {
+    width: 100%;
+    max-width: var(--maxw);
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 28px;
+    align-items: start
+}
+
+/* Portal (left column) */
+.portal {
+    position: relative;
+    min-height: 560px;
+    border-radius: 24px;
+    overflow: visible;
+    padding: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    box-shadow: 0 30px 80px rgba(2, 6, 23, 0.6);
+}
+
+/* Decorative rune ring around portal */
+.portal:before {
+    content: "";
+    position: absolute;
+    inset: 18px;
+    border-radius: 50%;
+    background: conic-gradient(from 90deg, rgba(196, 139, 255, 0.06), rgba(111, 240, 255, 0.04));
+    filter: blur(14px);
+    z-index: 0;
+    pointer-events: none;
+    mix-blend-mode: screen;
+}
+
+.portal-inner {
+    position: relative;
+    z-index: 2;
+    width: 620px;
+    height: 620px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: radial-gradient(circle at 30% 20%, rgba(196, 139, 255, 0.14), transparent 20%),
+        radial-gradient(circle at 80% 75%, rgba(111, 240, 255, 0.10), transparent 25%),
+        linear-gradient(180deg, rgba(6, 10, 30, 0.85), rgba(8, 12, 40, 0.8));
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 120px rgba(96, 48, 160, 0.12) inset, 0 30px 60px rgba(0, 0, 0, 0.6);
+    transform: translateZ(0);
+}
+
+/* Scroll header inside portal */
+.scroll {
+    height: 60vh;
+    width: 95%;
+    max-width: 550px;
+    background: linear-gradient(180deg, rgba(255, 248, 235, 0.02), rgba(255, 248, 235, 0.01));
+    border-radius: 14px;
+    padding: 18px 22px;
+    margin: 0 auto;
+    color: var(--muted);
+  
+    border: 1px solid rgba(255, 220, 150, 0.06);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+}
+
+.scroll h2 {
+   
+    margin: 0;
+    font-size: 1.4rem;
+    color: var(--accent-gold);
+    letter-spacing: 1px
+}
+
+.scroll p {
+    margin: 6px 0 0;
+    font-size: 0.95rem
+}
+
+/* Form inside portal styled like crystals */
+form {
+    margin-top: 28px;
+    display: grid;
+    gap: 12px;
+    font-family: Inter
+}
+
+label {
+    font-size: 1rem;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 7px;
+    margin-top: 7px;
+}
+
+.inputs {
+    display: grid;
+    gap: 10px
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+    color: #fff;
+    font-size: 1rem;
+    box-shadow: 0 8px 20px rgba(2, 6, 23, 0.6);
+    transition: box-shadow .18s, transform .18s;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    color: #130505; 
+    background: linear-gradient(180deg, rgba(111, 240, 255, 0.1), rgba(196, 139, 255, 0.1));
+    transform: translateY(-4px);
+    box-shadow: 0 0 16px rgba(111, 240, 255, 0.3), 0 0 32px rgba(196, 139, 255, 0.2);
+}
+
+
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px
+}
+
+/* Crystal buttons */
+ .actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px
+}
+
+.btn-crystal {
+    flex: 1;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    background: conic-gradient(from 120deg, rgba(196, 139, 255, 0.28), rgba(111, 240, 255, 0.22));
+    color: #fff;
+    box-shadow: 0 8px 30px rgba(96, 48, 160, 0.18), 0 2px 8px rgba(0, 0, 0, 0.6);
+    transition: transform 0.22s, box-shadow 0.22s;
+    backdrop-filter: blur(6px);
+}
+
+.btn-crystal:hover {
+    transform: scale(1.03);
+    box-shadow: 0 28px 60px rgba(96, 48, 160, 0.3);
+}
+
+.btn-ghost {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--muted);
+    padding: 12px 14px;
+    border-radius: 12px;
+    transition: background 0.22s, box-shadow 0.22s;
+}
+
+.btn-ghost:hover {
+    background: conic-gradient(from 120deg, rgba(196, 139, 255, 0.28), rgba(111, 240, 255, 0.22));
+}
+
+/* Right column: parchment scroll result */
+.result-card {
+    padding: 18px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(255, 244, 230, 0.02), rgba(255, 244, 220, 0.01));
+    border: 1px solid rgba(255, 230, 150, 0.06);
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 20px 60px rgba(2, 6, 23, 0.6);
+}
+
+/* parchment texture simulated with layered gradients */
+.parchment {
+    width: 92%;
+    padding: 18px;
+    border-radius: 12px;
+    background:
+        linear-gradient(180deg, rgba(255, 245, 235, 0.02), rgba(255, 235, 210, 0.01));
+    border: 1px solid rgba(255, 230, 180, 0.06);
+    color: var(--muted);
+   
+    line-height: 1.5;
+    text-align: center;
+    box-shadow: inset 0 2px 14px rgba(0, 0, 0, 0.25);
+}
+
+/* Prismatic zodiac orb */
+.orb {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 3rem;
+    
+    background: conic-gradient(from 0deg, rgba(255, 255, 255, 0.06), rgba(196, 139, 255, 0.12), rgba(111, 240, 255, 0.08));
+    border: 2px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 40px rgba(96, 48, 160, 0.25), inset 0 10px 40px rgba(255, 255, 255, 0.04);
+    position: relative;
+    overflow: hidden;
+}
+
+.orb:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.15), transparent 20%);
+    mix-blend-mode: screen;
+    pointer-events: none;
+    opacity: 0.9;
+}
+
+.orb .halo {
+    position: absolute;
+    inset: -20%;
+    filter: blur(30px);
+    background: radial-gradient(circle, rgba(196, 139, 255, 0.3), transparent 40%);
+    animation: halo 6s linear infinite alternate;
+}
+
+@keyframes halo {
+    from {
+        transform: rotate(0deg) scale(1)
+    }
+
+    to {
+        transform: rotate(360deg) scale(1.05)
+    }
+}
+
+/* small constellation sketch (pure CSS lines made with gradients) */
+.constellation {
+    width: 100%;
+    height: 120px;
+    background:
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.9) 1.5px, transparent 1.6px),
+        radial-gradient(circle at 40% 50%, rgba(255, 255, 255, 0.85) 1.4px, transparent 1.5px),
+        radial-gradient(circle at 60% 30%, rgba(255, 255, 255, 0.8) 1.3px, transparent 1.4px),
+        linear-gradient(90deg, transparent 0, transparent 100%);
+    background-size: cover;
+    position: relative;
+    mix-blend-mode: screen;
+    opacity: 0.95
+}
+
+.muted {
+    color: var(--muted)
+}
+
+footer {
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 0.9rem
+}
+
+/* responsive */
+@media (max-width:780px) {
+    .wrap {
+        grid-template-columns: 1fr
+    }
+
+    .portal-inner {
+        margin-top: 300px;
+        width: 420px;
+        height: 500px
+    }
+
+    .orb {
+        width: 120px;
+        height: 120px
+    }
+}

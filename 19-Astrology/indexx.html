@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Stargaze — Portal • Scroll • Crystal (Mixed Theme)</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="sky" aria-hidden="true"></div>
+    <div class="wrap" role="main">
+      <section class="portal card" aria-label="Celestial Portal">
+        <div class="portal-inner" role="region" aria-label="Portal center">
+          <div class="scroll" aria-hidden="false">
+            <h2>Shimmering Threshold</h2>
+            <p>
+              Cross into the light — the space below reveals patterns hidden in
+              plain sight.
+            </p>
+
+            <form aria-label="Astrology input form" autocomplete="off" id="form">
+              <div class="inputs">
+                <div class="field">
+                  <label for="name">Name</label>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    placeholder="Your name"
+                    required
+                  />
+                </div>
+
+                <div class="grid-2">
+                  <div class="field">
+                    <label for="age">Age</label>
+                    <input
+                      id="age"
+                      name="age"
+                      type="number"
+                      min="0"
+                      max="150"
+                      placeholder="e.g. 32"
+                    />
+                  </div>
+
+                  <div class="field">
+                    <label for="dob">Date of Birth</label>
+                    <input id="dob" name="dob" type="date" required />
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="gender">Gender (optional)</label>
+                  <select id="gender" name="gender">
+                    <option value="">Prefer not to say</option>
+                    <option>Female</option>
+                    <option>Male</option>
+                    <option>Non-binary</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+
+                <div class="actions">
+                  <button class="btn-crystal" type="submit">
+                    Reveal my Sun Sign
+                  </button>
+                  <button class="btn-ghost" type="reset">Reset</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <aside class="result-card card" aria-label="Reading result">
+        <div class="orb" role="img" aria-label="Zodiac orb">
+          <div class="halo" aria-hidden="true"></div>
+          ♈
+        </div>
+
+        <div class="parchment" aria-live="polite">
+          <h3
+            style="
+              margin: 0;
+              font-family: 'Cinzel Decorative', serif;
+              color: var(--accent-gold);
+            "
+          >
+            Welcome, Stargazer
+          </h3>
+          <p style="margin: 10px 0 0">
+            Submit your details through the portal. This parchment will hold
+            your sun-sign summary and a small constellation sketch.
+          </p>
+
+          <div
+            class="constellation"
+            style="margin-top: 12px"
+            aria-hidden="true"
+          ></div>
+        </div>
+
+        <footer class="muted">
+          <!-- No JavaScript version — compute signs server-side or add progressive
+          enhancement for client-side interactivity. -->
+        </footer>
+      </aside>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>

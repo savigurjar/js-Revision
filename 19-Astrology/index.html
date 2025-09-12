@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stargaze — Simple Astrology</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    /* ===== High-level CSS (modern, responsive, glassy card) =====
+       - Use CSS variables for quick theming
+       - Flexible layout with a centered card that adapts to mobile
+       - Soft gradient background, subtle glass effect on cards
+       - Spacious typography with clear visual hierarchy
+       - Micro-interactions: hover, focus, subtle transform
+    */
+
+    :root{
+      --bg-1: #0f172a; /* deep navy */
+      --bg-2: #0b1220; /* slightly lighter */
+      --accent-1: #7c3aed; /* violet */
+      --accent-2: #06b6d4; /* teal */
+      --glass: rgba(255,255,255,0.06);
+      --glass-2: rgba(255,255,255,0.04);
+      --muted: rgba(255,255,255,0.7);
+      --radius: 16px;
+      --gap: 20px;
+      --max-width: 980px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(124,58,237,0.12), transparent),
+                  radial-gradient(900px 400px at 90% 90%, rgba(6,182,212,0.08), transparent),
+                  linear-gradient(180deg,var(--bg-1),var(--bg-2));
+      color: #fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:40px 16px;
+    }
+
+    .container{
+      width:100%;
+      max-width:var(--max-width);
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:var(--gap);
+      align-items:start;
+    }
+
+    /* Card styles */
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.05);
+      backdrop-filter: blur(8px) saturate(120%);
+      padding:28px;
+      border-radius:var(--radius);
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+    }
+
+    header.site-brand{
+      grid-column:1/-1;
+      margin-bottom:6px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .logo{
+      width:56px;height:56px;border-radius:12px;
+      background:linear-gradient(135deg,var(--accent-1),var(--accent-2));
+      display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;color:#fff;
+      box-shadow:0 8px 20px rgba(12,8,40,0.6);
+    }
+    h1{margin:0;font-size:1.4rem}
+    p.lead{margin:4px 0 0;color:var(--muted);font-size:0.95rem}
+
+    /* Form */
+    form{display:flex;flex-direction:column;gap:14px}
+    label{font-size:0.85rem;color:var(--muted);display:block;margin-bottom:6px}
+    .field{
+      display:flex;flex-direction:column;
+    }
+    input[type="text"], input[type="number"], input[type="date"], select{
+      padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:var(--glass);color:#fff;outline:none;font-size:1rem;
+      transition:transform .18s ease, box-shadow .18s ease,border-color .18s ease;
+    }
+    input:focus, select:focus{
+      transform:translateY(-2px);
+      box-shadow:0 8px 20px rgba(124,58,237,0.12);
+      border-color: rgba(124,58,237,0.45);
+    }
+
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .actions{display:flex;gap:10px;align-items:center}
+    button.btn{
+      padding:12px 16px;border-radius:12px;border:0;font-weight:600;cursor:pointer;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));
+      color:#fff;box-shadow:0 8px 18px rgba(124,58,237,0.12);transition:transform .14s ease;
+    }
+    button.btn:active{transform:translateY(1px)}
+    button.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+
+    /* Result card */
+    .result{
+      display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center;padding:22px;border-radius:12px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.04);
+    }
+    .zodiac-badge{
+      width:120px;height:120px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:24px;
+      background:linear-gradient(135deg, rgba(124,58,237,0.16), rgba(6,182,212,0.12));
+      border:1px solid rgba(255,255,255,0.04);
+    }
+    .muted-small{color:var(--muted);font-size:0.9rem}
+
+    footer.note{grid-column:1/-1;margin-top:6px;color:var(--muted);font-size:0.85rem}
+
+    /* Responsive */
+    @media (max-width:900px){
+      .container{grid-template-columns:1fr;}
+      .logo{width:48px;height:48px}
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="site-brand">
+      <div class="logo">★</div>
+      <div>
+        <h1>Stargaze</h1>
+        <p class="lead">A small demo — enter your name, age and date of birth to get a quick sun-sign reading.</p>
+      </div>
+    </header>
+
+    <section class="card">
+      <form id="astroForm" autocomplete="off">
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" type="text" placeholder="Your name" required />
+        </div>
+
+        <div class="grid-2">
+          <div class="field">
+            <label for="age">Age</label>
+            <input id="age" type="number" min="0" max="150" placeholder="e.g. 32" />
+            <small class="muted-small">Tip: leave blank to auto-calc from date of birth</small>
+          </div>
+
+          <div class="field">
+            <label for="dob">Date of birth</label>
+            <input id="dob" type="date" required />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="gender">Gender (optional)</label>
+          <select id="gender">
+            <option value="">Prefer not to say</option>
+            <option>Female</option>
+            <option>Male</option>
+            <option>Non-binary</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="actions">
+          <button class="btn" type="submit">Reveal my Sun Sign</button>
+          <button class="ghost" type="button" id="resetBtn">Reset</button>
+        </div>
+      </form>
+
+      <footer class="note">This demo computes your sun sign from your date of birth. For full natal charts, integrate an astrology API or library.</footer>
+    </section>
+
+    <aside class="card result" id="resultCard">
+      <div class="zodiac-badge" id="zodiacBadge">?</div>
+      <div>
+        <div id="greeting" style="font-weight:700;font-size:1.1rem">Hello!</div>
+        <div id="sub" class="muted-small">Submit the form to see your sign and a short description.</div>
+      </div>
+      <div id="extra" class="muted-small"></div>
+    </aside>
+
+  </div>
+
+  <script>
+    // Lightweight JS — calculates sun sign from month/day and shows a tiny description.
+    const form = document.getElementById('astroForm');
+    const dob = document.getElementById('dob');
+    const ageInput = document.getElementById('age');
+    const resultCard = document.getElementById('resultCard');
+    const zodiacBadge = document.getElementById('zodiacBadge');
+    const greeting = document.getElementById('greeting');
+    const sub = document.getElementById('sub');
+    const extra = document.getElementById('extra');
+    const resetBtn = document.getElementById('resetBtn');
+
+    // Zodiac ranges (sun sign) — inclusive start date
+    const signs = [
+      {name:'Capricorn', start:[12,22], end:[1,19], desc:'Grounded, responsible, disciplined.'},
+      {name:'Aquarius', start:[1,20], end:[2,18], desc:'Inventive, independent, humanitarian.'},
+      {name:'Pisces', start:[2,19], end:[3,20], desc:'Empathetic, imaginative, intuitive.'},
+      {name:'Aries', start:[3,21], end:[4,19], desc:'Bold, energetic, pioneering.'},
+      {name:'Taurus', start:[4,20], end:[5,20], desc:'Steady, sensual, loyal.'},
+      {name:'Gemini', start:[5,21], end:[6,20], desc:'Curious, adaptable, communicative.'},
+      {name:'Cancer', start:[6,21], end:[7,22], desc:'Nurturing, protective, emotional.'},
+      {name:'Leo', start:[7,23], end:[8,22], desc:'Confident, warm, dramatic.'},
+      {name:'Virgo', start:[8,23], end:[9,22], desc:'Organized, analytical, service-minded.'},
+      {name:'Libra', start:[9,23], end:[10,22], desc:'Harmonious, diplomatic, aesthetic.'},
+      {name:'Scorpio', start:[10,23], end:[11,21], desc:'Intense, magnetic, probing.'},
+      {name:'Sagittarius', start:[11,22], end:[12,21], desc:'Adventurous, optimistic, philosophical.'}
+    ];
+
+    function getSign(month, day){
+      // month: 1-12, day: 1-31
+      for(const s of signs){
+        const [sm, sd] = s.start; const [em, ed] = s.end;
+        if(sm === em){
+          // same-month range
+          if(month === sm && day >= sd && day <= ed) return s;
+        } else if(sm < em){
+          // normal range inside same year
+          if((month === sm && day >= sd) || (month === em && day <= ed) || (month>sm && month<em)) return s;
+        } else {
+          // range that crosses year boundary (e.g. Capricorn)
+          if((month === sm && day >= sd) || (month === em && day <= ed) || (month>sm || month<em)) return s;
+        }
+      }
+      return null;
+    }
+
+    function calcAgeFromDOB(dobString){
+      if(!dobString) return null;
+      const b = new Date(dobString + 'T00:00:00');
+      const now = new Date();
+      let age = now.getFullYear() - b.getFullYear();
+      const m = now.getMonth() - b.getMonth();
+      if(m<0 || (m===0 && now.getDate()<b.getDate())) age--;
+      return age;
+    }
+
+    dob.addEventListener('change', ()=>{
+      const val = dob.value;
+      const autoAge = calcAgeFromDOB(val);
+      if(autoAge !== null && (!ageInput.value || ageInput.value.trim()==='')){
+        ageInput.value = autoAge;
+      }
+    });
+
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim() || 'Friend';
+      const dobVal = dob.value;
+      if(!dobVal){
+        alert('Please enter your date of birth');
+        return;
+      }
+      const d = new Date(dobVal + 'T00:00:00');
+      const month = d.getMonth()+1; const day = d.getDate();
+      const sign = getSign(month, day);
+      const age = calcAgeFromDOB(dobVal);
+
+      zodiacBadge.textContent = sign ? sign.name[0] : '?';
+      greeting.textContent = `${name}, your Sun sign is ${sign ? sign.name : 'Unknown'}`;
+      sub.textContent = sign ? sign.desc : '';
+      extra.textContent = `DOB: ${dobVal} • Age: ${age !== null ? age : '—'}`;
+
+      // small visual cue
+      resultCard.animate([
+        {transform:'translateY(0) scale(1)', opacity:1},
+        {transform:'translateY(-6px) scale(1.01)', opacity:1},
+        {transform:'translateY(0) scale(1)', opacity:1}
+      ],{duration:420, easing:'cubic-bezier(.2,.8,.2,1)'});
+    });
+
+    resetBtn.addEventListener('click', ()=>{
+      form.reset();
+      zodiacBadge.textContent = '?';
+      greeting.textContent = 'Hello!';
+      sub.textContent = 'Submit the form to see your sign and a short description.';
+      extra.textContent = '';
+      ageInput.value = '';
+    });
+
+  </script>
+</body>
+</html>
